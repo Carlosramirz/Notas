@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-s5Fg3wBTRF9W6BWf2p2z8InaKE/7kkrWWlOiu8VgwXQFhYTRvRxlEGbbzKkVR4d5" crossorigin="anonymous"></script>
+    <link href="{% static 'css/login.css' %}" rel="stylesheet" >
+    <title>Notas</title>
+</head>
+<body>
+    <div class="container w-75 bg-primary mt-5 rounded shadow">
+        <div class="row align-items-stretch">
+            <div class="col bg d-none d-lg-block col-md-5 col-lg-5 col-xl-6 rounded">
+
+            </div>
+            <div class="col bg-white p-5 rounded-end">
+                <div class="text-end">
+
+                </div>
+                <h2 class="fw-bold text-center py-5">Bienvenido</h2>
+                <!-- Formulario -->
+                <form method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <div class="mb-4">
+                        <label for="username" class="form-label">Usuario:</label>
+                        <input class="form-control" type="text" name="username" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="password" class="form-label">Contraseña:</label>
+                        <input type="password" name="password" required class="form-control">
+                    </div>
+                    <div class="mb-4 form-check">
+                        <input type="checkbox" name="connected" class="form-check-input">
+                        <label for="connected" class="form-check-label">Mantenerme conectado</label>
+                    </div>
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary">Inciar sesion</button>
+                    </div>
+                    <div class="my-3">
+                        <span>¿No tienes cuenta? <a href="{% url 'register' %}">Regístrate</a></span> <br>
+                        <span> <a href="">Recuperar password</a></span>
+                    </div>
+                </form>
+                <!-- Fin formulario -->
+                {% if form.errors %}
+                <div style="color: red;">
+                    <strong>Errores:</strong>
+                    <ul>
+                    {% for field, errors in form.errors.items %}
+                        {% for error in errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
